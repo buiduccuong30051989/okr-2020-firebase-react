@@ -1,7 +1,15 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Card } from 'antd';
+import { Row, Col } from 'antd';
+
+const { Meta } = Card;
 import { fetchPosts } from '../../stores/home/thunks';
 import { homeLoadingSelector, postSelector } from '../../stores/home/selectors';
+import { Layout } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -15,13 +23,23 @@ function HomePage() {
   if (loading) return 'loading...';
 
   return (
-    <div>
-      {posts.map((post) => (
-        <div key={post.id}>
-          {post.title}
-        </div>
-      ))}
-    </div>
+    <Layout className="layout">
+      <Content style={{ padding: '50px' }}>
+        <Row gutter={[30, 30]}>
+          {posts.map((post) => (
+            <Col span={6}>
+              <Card
+                hoverable
+                style={{ width: 240 }}
+                cover={<img alt={post.name} src={post.photo} />}
+              >
+                <Meta title={post.name} description={post.city} />
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Content>
+    </Layout>
   );
 }
 
