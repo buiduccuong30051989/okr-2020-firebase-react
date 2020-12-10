@@ -5,6 +5,7 @@ import { routes } from '../../utils/constants';
 const HomePage = lazy(() => import('../HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage'));
 const Detail = lazy(() => import('../Detail'));
+const Add = lazy(() => import('../Add'));
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route exact path={routes.homepage} component={HomePage} />
         <Route exact path={routes.homepage} component={HomePage} />
+        <Route exact path="/add" component={Add} />
         <Route exact path="/:id" component={Detail} />
         <Route component={NotFoundPage} />
       </Switch>

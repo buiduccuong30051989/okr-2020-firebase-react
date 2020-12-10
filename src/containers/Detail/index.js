@@ -14,12 +14,12 @@ function Detail() {
 
   useEffect(() => {
     dispatch(fetchDetailPost(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <Card
       hoverable
-      style={{ width: '100%' }}
+      style={{ width: '50vw', margin: '60px auto' }}
       cover={<img alt={postDetail.name} src={postDetail.photo} />}
     >
       <Meta title={postDetail.name} description={postDetail.city} />
