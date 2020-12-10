@@ -10,8 +10,10 @@ export const fetchPosts = createAsyncThunk('home/fetchPosts', async () => {
     .orderBy('avgRating', 'desc')
     .limit(50);
 
-  const snapshot = await query.get()
-  const data =  snapshot.docs.map(doc => doc.data());
+  const snapshot = await query.get();
+  const data = snapshot.docs.map((doc) => {
+    return { ...doc.data(), id: doc.id }
+  });
   return data;
 });
 
