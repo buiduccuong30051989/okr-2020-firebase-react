@@ -1,23 +1,33 @@
-/* eslint-disable */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import {
+  Form,
+  Input,
+  Button,
+  InputNumber,
+} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { insertPost } from '../../stores/add/addSlice';
-import { postAddSelector } from '../../stores/add/selectors';
-import { addPost } from '../../stores/add/thunks';
+import { fetchDetailPost, editPost } from '../../stores/edit/thunks';
+import { postEditSelector } from '../../stores/edit/selectors';
+import { insertPost } from '../../stores/edit/editSlice';
 
-import { Form, Input, Button, InputNumber } from 'antd';
-
-function Add() {
+function Edit() {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const addPostSelect = useSelector(postAddSelector);
+  const history = useHistory();
+  const editPostSelect = useSelector(postEditSelector);
 
   function handleChange(name, value) {
     dispatch(insertPost({ [name]: value }));
   }
 
   function submit() {
-    dispatch(addPost(addPostSelect));
+    dispatch(editPost({ editPostSelect, id, history }));
   }
+
+  useEffect(() => {
+    dispatch(fetchDetailPost(id));
+  }, [dispatch, id]);
 
   return (
     <Form
@@ -30,47 +40,47 @@ function Add() {
       <Form.Item label="avgRating">
         <InputNumber
           onChange={(value) => handleChange('avgRating', value)}
-          value={addPostSelect.avgRating}
+          value={editPostSelect.avgRating}
         />
       </Form.Item>
       <Form.Item label="city">
         <Input
           onChange={(e) => handleChange(e.target.name, e.target.value)}
           name="city"
-          value={addPostSelect.city}
+          value={editPostSelect.city}
         />
       </Form.Item>
       <Form.Item label="photo">
         <Input
           onChange={(e) => handleChange(e.target.name, e.target.value)}
           name="photo"
-          value={addPostSelect.photo}
+          value={editPostSelect.photo}
         />
       </Form.Item>
       <Form.Item label="name">
         <Input
           onChange={(e) => handleChange(e.target.name, e.target.value)}
           name="name"
-          value={addPostSelect.name}
+          value={editPostSelect.name}
         />
       </Form.Item>
       <Form.Item label="category">
         <Input
           onChange={(e) => handleChange(e.target.name, e.target.value)}
           name="category"
-          value={addPostSelect.category}
+          value={editPostSelect.category}
         />
       </Form.Item>
       <Form.Item label="numRatings">
         <InputNumber
           onChange={(value) => handleChange('numRatings', value)}
-          value={addPostSelect.numRatings}
+          value={editPostSelect.numRatings}
         />
       </Form.Item>
       <Form.Item label="price">
         <InputNumber
           onChange={(value) => handleChange('price', value)}
-          value={addPostSelect.price}
+          value={editPostSelect.price}
         />
       </Form.Item>
       <Form.Item label="Button">
@@ -80,4 +90,4 @@ function Add() {
   );
 }
 
-export default Add;
+export default Edit;

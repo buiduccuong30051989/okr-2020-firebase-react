@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const { Meta } = Card;
 import { fetchPosts } from '../../stores/home/thunks';
 import { homeLoadingSelector, postSelector } from '../../stores/home/selectors';
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 
 const { Content } = Layout;
 
@@ -26,6 +26,9 @@ function HomePage() {
   return (
     <Layout className="layout">
       <Content style={{ padding: '50px' }}>
+        <Link to="/add">
+          <Button style={{marginBottom: '50px'}} type="primary" size="large">Add New</Button>
+        </Link>
         <Row gutter={[30, 30]}>
           {posts.map((post) => (
             <Col span={6}>

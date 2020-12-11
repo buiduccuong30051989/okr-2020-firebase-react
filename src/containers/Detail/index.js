@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Card } from 'antd';
+import { useParams, Link } from 'react-router-dom';
+import { Card, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDetailPost } from '../../stores/detail/thunks';
 import { postDetailSelector } from '../../stores/detail/selectors';
@@ -17,13 +17,23 @@ function Detail() {
   }, [dispatch, id]);
 
   return (
-    <Card
-      hoverable
-      style={{ width: '50vw', margin: '60px auto' }}
-      cover={<img alt={postDetail.name} src={postDetail.photo} />}
-    >
-      <Meta title={postDetail.name} description={postDetail.city} />
-    </Card>
+    <>
+      <Card
+        hoverable
+        style={{ width: '50vw', margin: '60px auto' }}
+        cover={<img alt={postDetail.name} src={postDetail.photo} />}
+      >
+        <Meta title={postDetail.name} description={postDetail.city} />
+      </Card>
+      <Link
+        style={{ display: 'block', margin: '50px auto', width: '300px' }}
+        to={`/edit/${id}`}
+      >
+        <Button style={{ width: '100%' }} type="primary" size="large">
+          Edit
+        </Button>
+      </Link>
+    </>
   );
 }
 
